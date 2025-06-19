@@ -40,7 +40,8 @@ export default function VisualAcuity() {
     }
   };
 
-  const fontSize = 100 - level * 4;
+  // Use exponential reduction for significant size decrease each step
+  const fontSize = 120 / Math.pow(2, level);
 
   return (
     <div className="flex flex-col items-center">
@@ -90,6 +91,17 @@ export default function VisualAcuity() {
         className="mt-2 bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-500"
       >
         Skip to next section
+      </button>
+      <button
+        onClick={() => {
+          setLevel(0);
+          setInput("");
+          setResponses([]);
+          inputRef.current?.focus();
+        }}
+        className="mt-2 bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-500"
+      >
+        Start Over
       </button>
     </div>
   );

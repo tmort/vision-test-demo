@@ -33,7 +33,7 @@ export default function ColorBlindTest() {
         if (finished) {
             router.push('/eye-test/results');
         }
-    }, [finished]);
+    }, [finished, router]);
 
     const handleNext = () => {
         const current = testNumbers[step];
