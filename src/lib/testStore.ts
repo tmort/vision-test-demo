@@ -10,6 +10,10 @@ export const testStore = {
   setColorBlind(data: typeof colorBlind) {
     colorBlind = data;
   },
+  clear() {
+    visualAcuity = [];
+    colorBlind = [];
+  },
   getResults() {
     return { visualAcuity, colorBlind };
   },

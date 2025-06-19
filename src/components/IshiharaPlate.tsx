@@ -48,7 +48,7 @@ export default function IshiharaPlate({ width = 300, height = 300, number }: Ish
 
     const textData = getTextPixels(ctx, number, width, height);
 
-    for (let i = 0; i < 1000; i++) {
+    for (let i = 0; i < 3000; i++) {
       const x = Math.random() * width;
       const y = Math.random() * height;
 

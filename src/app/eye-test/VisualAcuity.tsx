@@ -9,19 +9,15 @@ const letters = [
   "F",
   "P",
   "T",
-  "O",
-  "Z",
-  "L",
-  "P",
-  "E",
-  "D",
+  "O"
 ];
+
 
 export default function VisualAcuity() {
   const router = useRouter();
   const [level, setLevel] = useState(0);
   const [input, setInput] = useState("");
-  const [responses, setResponses] = useState<{ letter: string; answer: string }[]>([]);
+  const [responses, setResponses] = useState<{ letter: string; answer: "yes" | "no" }[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -30,7 +26,9 @@ export default function VisualAcuity() {
 
   const handleSubmit = () => {
     const currentLetter = letters[level];
-    const nextResponses = [...responses, { letter: currentLetter, answer: input.toUpperCase() }];
+    const isCorrect = input.trim().toUpperCase() === currentLetter;
+    const answer: "yes" | "no" = isCorrect ? "yes" : "no";
+    const nextResponses: { letter: string; answer: "yes" | "no" }[] = [...responses, { letter: currentLetter, answer }];
     setResponses(nextResponses);
     setInput("");
 
@@ -46,6 +44,19 @@ export default function VisualAcuity() {
 
   return (
     <div className="flex flex-col items-center">
+      {/* Progress Bar */}
+      <div className="w-full max-w-xs mb-4">
+        <div className="flex justify-between text-xs mb-1">
+          <span>Progress</span>
+          <span>{level + 1} / {letters.length}</span>
+        </div>
+        <div className="w-full bg-gray-200 rounded-full h-2.5">
+          <div
+            className="bg-blue-500 h-2.5 rounded-full"
+            style={{ width: `${((level + 1) / letters.length) * 100}%` }}
+          ></div>
+        </div>
+      </div>
       <h2 className="text-xl mb-4">Type the letter you see</h2>
       <div
         className="font-bold mb-6"
@@ -53,6 +64,7 @@ export default function VisualAcuity() {
       >
         {letters[level]}
       </div>
+      <p>Enter the letter you see and click submit (or press enter):</p>
       <input
         ref={inputRef}
         type="text"
